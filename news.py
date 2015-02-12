@@ -1,18 +1,11 @@
-import click
-import feedparser
+import click, feedparser
 from pyteaser import SummarizeUrl
 
 
-@click.command()
-@click.option('--count', default=2, help='Number of times to announce')
-@click.argument('name')
-def hello(count, name):
-	for x in range(count):
-		click.echo("Hello Mr. %s" % name)
+# @click.command()
+# @click.option('--count', default=2, help='Number of times to announce')
+# @click.argument('name')
 
-	click.echo(click.style('Hello World!', fg='green'))
-	click.echo(click.style('Some more text', bg='blue', fg='white'))
-	click.echo(click.style('ATTENTION', blink=True, bold=True))
 
 @click.command()
 def nation_news():
@@ -29,15 +22,10 @@ def nation_news():
 		click.echo(click.style(entry['description'], fg='green'))
 		click.echo("----------------------------------")
 	item = click.prompt('Please enter an entry number for more', type=int)
-
 	entry_select = entries[item-1]
-
 	entry_url = entry_select['link']
-
 	summary = SummarizeUrl(entry_url)
-
 	click.echo(click.style(entry_select['title'], fg='red'))
-
 	for x in summary:
 		click.echo(x)
 
